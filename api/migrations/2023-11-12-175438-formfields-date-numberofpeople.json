@@ -1,0 +1,72 @@
+{
+	"formatVersion": 5,
+	"modifications": [
+		{
+			"modification": "createColumn",
+			"entityName": "FormFields",
+			"field": {
+				"name": "numberOfPeople",
+				"columnName": "number_of_people",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "FormFields",
+			"field": {
+				"name": "date",
+				"columnName": "date",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/FormFields/operations/read/numberOfPeople",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/FormFields/operations/read/date",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/FormFields/operations/create/numberOfPeople",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/FormFields/operations/create/date",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/FormFields/operations/update/numberOfPeople",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/FormFields/operations/update/date",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/FormFields/operations/read/numberOfPeople",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/FormFields/operations/read/date",
+					"value": true
+				}
+			]
+		}
+	]
+}

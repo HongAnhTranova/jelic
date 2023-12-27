@@ -1,0 +1,43 @@
+{
+	"formatVersion": 3,
+	"modifications": [
+		{
+			"modification": "createColumn",
+			"entityName": "Link",
+			"field": {
+				"name": "isTargetBlank",
+				"columnName": "is_target_blank",
+				"columnType": "boolean",
+				"nullable": false,
+				"type": "Bool",
+				"default": false
+			},
+			"fillValue": false
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Link/operations/read/isTargetBlank",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Link/operations/create/isTargetBlank",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Link/operations/update/isTargetBlank",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/Link/operations/read/isTargetBlank",
+					"value": true
+				}
+			]
+		}
+	]
+}

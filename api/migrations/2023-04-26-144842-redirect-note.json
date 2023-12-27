@@ -1,0 +1,41 @@
+{
+	"formatVersion": 3,
+	"modifications": [
+		{
+			"modification": "createColumn",
+			"entityName": "Redirect",
+			"field": {
+				"name": "note",
+				"columnName": "note",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Redirect/operations/create/note",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Redirect/operations/update/note",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Redirect/operations/read/note",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/Redirect/operations/read/note",
+					"value": true
+				}
+			]
+		}
+	]
+}

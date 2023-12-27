@@ -1,0 +1,371 @@
+{
+	"formatVersion": 5,
+	"modifications": [
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "AvaibilityDate",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "avaibility_date",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					}
+				},
+				"unique": [],
+				"indexes": [],
+				"eventLog": {
+					"enabled": true
+				}
+			}
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "Course",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "course",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					}
+				},
+				"unique": [],
+				"indexes": [],
+				"eventLog": {
+					"enabled": true
+				}
+			}
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "CourseLocale",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "course_locale",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					}
+				},
+				"unique": [],
+				"indexes": [],
+				"eventLog": {
+					"enabled": true
+				}
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "AvaibilityDate",
+			"field": {
+				"name": "order",
+				"columnName": "order",
+				"columnType": "integer",
+				"nullable": false,
+				"type": "Integer"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "AvaibilityDate",
+			"field": {
+				"name": "dateTime",
+				"columnName": "date_time",
+				"columnType": "timestamptz",
+				"nullable": false,
+				"type": "DateTime"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "AvaibilityDate",
+			"field": {
+				"name": "numberOfPeople",
+				"columnName": "number_of_people",
+				"columnType": "integer",
+				"nullable": false,
+				"type": "Integer",
+				"default": 1
+			},
+			"fillValue": 1
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Course",
+			"field": {
+				"name": "unique",
+				"columnName": "unique",
+				"columnType": "One",
+				"nullable": false,
+				"type": "Enum"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "CourseLocale",
+			"field": {
+				"name": "title",
+				"columnName": "title",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "AvaibilityDate",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "course",
+				"target": "Course",
+				"joiningColumn": {
+					"columnName": "course_id",
+					"onDelete": "cascade"
+				},
+				"nullable": false,
+				"inversedBy": "avaibilityDates"
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "avaibilityDates",
+				"target": "AvaibilityDate",
+				"ownedBy": "course"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "CourseLocale",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "root",
+				"target": "Course",
+				"joiningColumn": {
+					"columnName": "root_id",
+					"onDelete": "cascade"
+				},
+				"nullable": false,
+				"inversedBy": "locales"
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "locales",
+				"target": "CourseLocale",
+				"ownedBy": "root"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "CourseLocale",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "locale",
+				"target": "Locale",
+				"joiningColumn": {
+					"columnName": "locale_id",
+					"onDelete": "cascade"
+				},
+				"nullable": false,
+				"inversedBy": "courses"
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "courses",
+				"target": "CourseLocale",
+				"ownedBy": "locale"
+			}
+		},
+		{
+			"modification": "createUniqueConstraint",
+			"entityName": "Course",
+			"unique": {
+				"fields": [
+					"unique"
+				]
+			}
+		},
+		{
+			"modification": "createUniqueConstraint",
+			"entityName": "CourseLocale",
+			"unique": {
+				"fields": [
+					"root",
+					"locale"
+				]
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/AvaibilityDate",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"id": true,
+								"course": true,
+								"order": true,
+								"dateTime": true,
+								"numberOfPeople": true
+							},
+							"create": {
+								"id": true,
+								"course": true,
+								"order": true,
+								"dateTime": true,
+								"numberOfPeople": true
+							},
+							"update": {
+								"id": true,
+								"course": true,
+								"order": true,
+								"dateTime": true,
+								"numberOfPeople": true
+							},
+							"delete": true,
+							"customPrimary": true
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Course",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"id": true,
+								"unique": true,
+								"locales": true,
+								"avaibilityDates": true
+							},
+							"create": {
+								"id": true,
+								"unique": true,
+								"locales": true,
+								"avaibilityDates": true
+							},
+							"update": {
+								"id": true,
+								"unique": true,
+								"locales": true,
+								"avaibilityDates": true
+							},
+							"delete": true,
+							"customPrimary": true
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/CourseLocale",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"id": true,
+								"root": true,
+								"locale": true,
+								"title": true
+							},
+							"create": {
+								"id": true,
+								"root": true,
+								"locale": true,
+								"title": true
+							},
+							"update": {
+								"id": true,
+								"root": true,
+								"locale": true,
+								"title": true
+							},
+							"delete": true,
+							"customPrimary": true
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Locale/operations/create/courses",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Locale/operations/update/courses",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Locale/operations/read/courses",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/AvaibilityDate",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"course": true,
+								"order": true,
+								"dateTime": true,
+								"numberOfPeople": true
+							}
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/Course",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"unique": true,
+								"locales": true,
+								"avaibilityDates": true
+							}
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/CourseLocale",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"root": true,
+								"locale": true,
+								"title": true
+							}
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/Locale/operations/read/courses",
+					"value": true
+				}
+			]
+		}
+	]
+}

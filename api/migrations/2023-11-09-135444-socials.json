@@ -1,0 +1,157 @@
+{
+	"formatVersion": 5,
+	"modifications": [
+		{
+			"modification": "removeField",
+			"entityName": "HomePageLocale",
+			"fieldName": "socials"
+		},
+		{
+			"modification": "removeField",
+			"entityName": "HomePageLocale",
+			"fieldName": "address"
+		},
+		{
+			"modification": "removeField",
+			"entityName": "HomePageLocale",
+			"fieldName": "email"
+		},
+		{
+			"modification": "removeField",
+			"entityName": "HomePageLocale",
+			"fieldName": "tel"
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "HomePage",
+			"field": {
+				"name": "address",
+				"columnName": "address",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "HomePage",
+			"field": {
+				"name": "email",
+				"columnName": "email",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "HomePage",
+			"field": {
+				"name": "tel",
+				"columnName": "tel",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "HomePage",
+			"owningSide": {
+				"type": "OneHasOne",
+				"name": "socials",
+				"target": "SocialLinkList",
+				"joiningColumn": {
+					"columnName": "socials_id",
+					"onDelete": "cascade"
+				},
+				"nullable": true
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePage/operations/create/address",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePage/operations/create/email",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePage/operations/create/tel",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePage/operations/create/socials",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePage/operations/update/address",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePage/operations/update/email",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePage/operations/update/tel",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePage/operations/update/socials",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePage/operations/read/address",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePage/operations/read/email",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePage/operations/read/tel",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePage/operations/read/socials",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/HomePage/operations/read/address",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/HomePage/operations/read/email",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/HomePage/operations/read/tel",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/HomePage/operations/read/socials",
+					"value": true
+				}
+			]
+		}
+	]
+}

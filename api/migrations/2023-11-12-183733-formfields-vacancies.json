@@ -1,0 +1,41 @@
+{
+	"formatVersion": 5,
+	"modifications": [
+		{
+			"modification": "createColumn",
+			"entityName": "FormFields",
+			"field": {
+				"name": "vacancies",
+				"columnName": "vacancies",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/FormFields/operations/read/vacancies",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/FormFields/operations/create/vacancies",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/FormFields/operations/update/vacancies",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/FormFields/operations/read/vacancies",
+					"value": true
+				}
+			]
+		}
+	]
+}

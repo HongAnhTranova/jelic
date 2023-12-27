@@ -1,0 +1,223 @@
+{
+	"formatVersion": 3,
+	"modifications": [
+		{
+			"modification": "removeField",
+			"entityName": "GenericPage",
+			"fieldName": "seo"
+		},
+		{
+			"modification": "removeField",
+			"entityName": "Locale",
+			"fieldName": "general"
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "GenericPageLocale",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "generic_page_locale",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					}
+				},
+				"unique": {},
+				"indexes": {},
+				"eventLog": {
+					"enabled": true
+				}
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "GenericPageLocale",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "root",
+				"target": "GenericPage",
+				"joiningColumn": {
+					"columnName": "root_id",
+					"onDelete": "cascade"
+				},
+				"nullable": false,
+				"inversedBy": "locales"
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "locales",
+				"target": "GenericPageLocale",
+				"ownedBy": "root"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "GenericPageLocale",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "locale",
+				"target": "Locale",
+				"joiningColumn": {
+					"columnName": "locale_id",
+					"onDelete": "cascade"
+				},
+				"nullable": false,
+				"inversedBy": "genericPages"
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "genericPages",
+				"target": "GenericPageLocale",
+				"ownedBy": "locale"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "GenericPageLocale",
+			"owningSide": {
+				"type": "OneHasOne",
+				"name": "seo",
+				"target": "Seo",
+				"joiningColumn": {
+					"columnName": "seo_id",
+					"onDelete": "set null"
+				},
+				"nullable": true
+			}
+		},
+		{
+			"modification": "createRelationInverseSide",
+			"entityName": "Locale",
+			"relation": {
+				"type": "OneHasMany",
+				"name": "generals",
+				"target": "GeneralLocale",
+				"ownedBy": "locale"
+			}
+		},
+		{
+			"modification": "createUniqueConstraint",
+			"entityName": "GenericPageLocale",
+			"unique": {
+				"fields": [
+					"root",
+					"locale"
+				],
+				"name": "unique_GenericPageLocale_root_locale_ac6b54"
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPageLocale",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"id": true,
+								"root": true,
+								"locale": true,
+								"seo": true
+							},
+							"create": {
+								"id": true,
+								"root": true,
+								"locale": true,
+								"seo": true
+							},
+							"update": {
+								"id": true,
+								"root": true,
+								"locale": true,
+								"seo": true
+							},
+							"delete": true,
+							"customPrimary": true
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPage/operations/create/locales",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPage/operations/update/locales",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPage/operations/read/locales",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Locale/operations/create/generals",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Locale/operations/create/genericPages",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Locale/operations/update/generals",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Locale/operations/update/genericPages",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Locale/operations/read/generals",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Locale/operations/read/genericPages",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/GenericPageLocale",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"root": true,
+								"locale": true,
+								"seo": true
+							}
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/GenericPage/operations/read/locales",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/Locale/operations/read/generals",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/Locale/operations/read/genericPages",
+					"value": true
+				}
+			]
+		}
+	]
+}

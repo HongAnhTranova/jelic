@@ -1,0 +1,36 @@
+{
+	"formatVersion": 3,
+	"modifications": [
+		{
+			"modification": "createColumn",
+			"entityName": "GenericPage",
+			"field": {
+				"name": "title",
+				"columnName": "title",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPage/operations/read/title",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPage/operations/create/title",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPage/operations/update/title",
+					"value": true
+				}
+			]
+		}
+	]
+}

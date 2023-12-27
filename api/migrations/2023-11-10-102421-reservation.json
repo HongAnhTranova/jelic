@@ -1,0 +1,184 @@
+{
+	"formatVersion": 5,
+	"modifications": [
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "Reservation",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "reservation",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					}
+				},
+				"unique": [],
+				"indexes": [],
+				"eventLog": {
+					"enabled": true
+				}
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Reservation",
+			"field": {
+				"name": "numberOfPeople",
+				"columnName": "number_of_people",
+				"columnType": "integer",
+				"nullable": true,
+				"type": "Integer"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Reservation",
+			"field": {
+				"name": "name",
+				"columnName": "name",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Reservation",
+			"field": {
+				"name": "email",
+				"columnName": "email",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Reservation",
+			"field": {
+				"name": "tel",
+				"columnName": "tel",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Reservation",
+			"field": {
+				"name": "note",
+				"columnName": "note",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "Reservation",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "avaibilityDate",
+				"target": "AvaibilityDate",
+				"joiningColumn": {
+					"columnName": "avaibility_date_id",
+					"onDelete": "cascade"
+				},
+				"nullable": false,
+				"inversedBy": "reservation"
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "reservation",
+				"target": "Reservation",
+				"ownedBy": "avaibilityDate"
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Reservation",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"id": true,
+								"avaibilityDate": true,
+								"numberOfPeople": true,
+								"name": true,
+								"email": true,
+								"tel": true,
+								"note": true
+							},
+							"create": {
+								"id": true,
+								"avaibilityDate": true,
+								"numberOfPeople": true,
+								"name": true,
+								"email": true,
+								"tel": true,
+								"note": true
+							},
+							"update": {
+								"id": true,
+								"avaibilityDate": true,
+								"numberOfPeople": true,
+								"name": true,
+								"email": true,
+								"tel": true,
+								"note": true
+							},
+							"delete": true,
+							"customPrimary": true
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/AvaibilityDate/operations/read/reservation",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/AvaibilityDate/operations/create/reservation",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/AvaibilityDate/operations/update/reservation",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/Reservation",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"avaibilityDate": true,
+								"numberOfPeople": true,
+								"name": true,
+								"email": true,
+								"tel": true,
+								"note": true
+							}
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/AvaibilityDate/operations/read/reservation",
+					"value": true
+				}
+			]
+		}
+	]
+}

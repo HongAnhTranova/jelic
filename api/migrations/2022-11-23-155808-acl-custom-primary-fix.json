@@ -1,0 +1,55 @@
+{
+	"formatVersion": 3,
+	"modifications": [
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/General/operations/customPrimary",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Image/operations/customPrimary",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPage/operations/customPrimary",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Linkable/operations/customPrimary",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Seo/operations/customPrimary",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Content/operations/customPrimary",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/ContentBlock/operations/customPrimary",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/ContentReference/operations/customPrimary",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/ContentReferenceLinkableItem/operations/customPrimary",
+					"value": true
+				}
+			]
+		}
+	]
+}

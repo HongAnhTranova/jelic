@@ -1,0 +1,103 @@
+{
+	"formatVersion": 5,
+	"modifications": [
+		{
+			"modification": "createColumn",
+			"entityName": "HomePageLocale",
+			"field": {
+				"name": "address",
+				"columnName": "address",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "HomePageLocale",
+			"field": {
+				"name": "email",
+				"columnName": "email",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "HomePageLocale",
+			"field": {
+				"name": "tel",
+				"columnName": "tel",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePageLocale/operations/read/address",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePageLocale/operations/read/email",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePageLocale/operations/read/tel",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePageLocale/operations/create/address",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePageLocale/operations/create/email",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePageLocale/operations/create/tel",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePageLocale/operations/update/address",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePageLocale/operations/update/email",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePageLocale/operations/update/tel",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/HomePageLocale/operations/read/address",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/HomePageLocale/operations/read/email",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/HomePageLocale/operations/read/tel",
+					"value": true
+				}
+			]
+		}
+	]
+}

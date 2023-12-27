@@ -1,0 +1,157 @@
+{
+	"formatVersion": 3,
+	"modifications": [
+		{
+			"modification": "removeField",
+			"entityName": "GenericPage",
+			"fieldName": "link"
+		},
+		{
+			"modification": "removeField",
+			"entityName": "GenericPage",
+			"fieldName": "title"
+		},
+		{
+			"modification": "removeField",
+			"entityName": "GenericPage",
+			"fieldName": "content"
+		},
+		{
+			"modification": "removeField",
+			"entityName": "Linkable",
+			"fieldName": "genericPage"
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "GenericPageLocale",
+			"field": {
+				"name": "title",
+				"columnName": "title",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "GenericPageLocale",
+			"owningSide": {
+				"type": "OneHasOne",
+				"name": "content",
+				"target": "Content",
+				"joiningColumn": {
+					"columnName": "content_id",
+					"onDelete": "set null"
+				},
+				"nullable": true
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "Linkable",
+			"owningSide": {
+				"type": "OneHasOne",
+				"name": "genericPage",
+				"target": "GenericPageLocale",
+				"joiningColumn": {
+					"columnName": "generic_page_id",
+					"onDelete": "cascade"
+				},
+				"nullable": true,
+				"inversedBy": "link"
+			},
+			"inverseSide": {
+				"type": "OneHasOne",
+				"name": "link",
+				"target": "Linkable",
+				"ownedBy": "genericPage",
+				"nullable": false
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Linkable/operations/create/genericPage",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Linkable/operations/update/genericPage",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Linkable/operations/read/genericPage",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPageLocale/operations/create/link",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPageLocale/operations/create/title",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPageLocale/operations/create/content",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPageLocale/operations/update/link",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPageLocale/operations/update/title",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPageLocale/operations/update/content",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPageLocale/operations/read/link",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPageLocale/operations/read/title",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPageLocale/operations/read/content",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/Linkable/operations/read/genericPage",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/GenericPageLocale/operations/read/link",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/GenericPageLocale/operations/read/title",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/GenericPageLocale/operations/read/content",
+					"value": true
+				}
+			]
+		}
+	]
+}

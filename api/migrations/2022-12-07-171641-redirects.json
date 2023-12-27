@@ -1,0 +1,128 @@
+{
+	"formatVersion": 3,
+	"modifications": [
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "Redirect",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "redirect",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					}
+				},
+				"unique": {},
+				"indexes": {},
+				"eventLog": {
+					"enabled": true
+				}
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "Linkable",
+			"owningSide": {
+				"type": "OneHasOne",
+				"name": "redirect",
+				"target": "Redirect",
+				"joiningColumn": {
+					"columnName": "redirect_id",
+					"onDelete": "cascade"
+				},
+				"nullable": true,
+				"inversedBy": "link"
+			},
+			"inverseSide": {
+				"type": "OneHasOne",
+				"name": "link",
+				"target": "Linkable",
+				"ownedBy": "redirect",
+				"nullable": false
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "Redirect",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "target",
+				"target": "Linkable",
+				"joiningColumn": {
+					"columnName": "target_id",
+					"onDelete": "cascade"
+				},
+				"nullable": false
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Redirect",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"id": true,
+								"link": true,
+								"target": true
+							},
+							"create": {
+								"id": true,
+								"link": true,
+								"target": true
+							},
+							"update": {
+								"id": true,
+								"link": true,
+								"target": true
+							},
+							"delete": true,
+							"customPrimary": true
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Linkable/operations/read/redirect",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Linkable/operations/create/redirect",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Linkable/operations/update/redirect",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/Redirect",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"link": true,
+								"target": true
+							}
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/Linkable/operations/read/redirect",
+					"value": true
+				}
+			]
+		}
+	]
+}

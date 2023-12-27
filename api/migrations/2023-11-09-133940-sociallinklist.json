@@ -1,0 +1,306 @@
+{
+	"formatVersion": 5,
+	"modifications": [
+		{
+			"modification": "createEnum",
+			"enumName": "SocialLinkType",
+			"values": [
+				"facebook",
+				"instagram"
+			]
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "SocialLink",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "social_link",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					}
+				},
+				"unique": [],
+				"indexes": [],
+				"eventLog": {
+					"enabled": true
+				}
+			}
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "SocialLinkItem",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "social_link_item",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					}
+				},
+				"unique": [],
+				"indexes": [],
+				"eventLog": {
+					"enabled": true
+				}
+			}
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "SocialLinkList",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "social_link_list",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					}
+				},
+				"unique": [],
+				"indexes": [],
+				"eventLog": {
+					"enabled": true
+				}
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "SocialLink",
+			"field": {
+				"name": "type",
+				"columnName": "type",
+				"columnType": "SocialLinkType",
+				"nullable": true,
+				"type": "Enum"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "SocialLink",
+			"field": {
+				"name": "url",
+				"columnName": "url",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "SocialLinkItem",
+			"field": {
+				"name": "order",
+				"columnName": "order",
+				"columnType": "integer",
+				"nullable": false,
+				"type": "Integer"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "HomePageLocale",
+			"owningSide": {
+				"type": "OneHasOne",
+				"name": "socials",
+				"target": "SocialLinkList",
+				"joiningColumn": {
+					"columnName": "socials_id",
+					"onDelete": "cascade"
+				},
+				"nullable": true
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "SocialLinkItem",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "list",
+				"target": "SocialLinkList",
+				"joiningColumn": {
+					"columnName": "list_id",
+					"onDelete": "restrict"
+				},
+				"nullable": true,
+				"inversedBy": "items"
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "items",
+				"target": "SocialLinkItem",
+				"ownedBy": "list"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "SocialLinkItem",
+			"owningSide": {
+				"type": "OneHasOne",
+				"name": "socialLink",
+				"target": "SocialLink",
+				"joiningColumn": {
+					"columnName": "social_link_id",
+					"onDelete": "restrict"
+				},
+				"nullable": true
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/SocialLink",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"id": true,
+								"type": true,
+								"url": true
+							},
+							"create": {
+								"id": true,
+								"type": true,
+								"url": true
+							},
+							"update": {
+								"id": true,
+								"type": true,
+								"url": true
+							},
+							"delete": true,
+							"customPrimary": true
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/SocialLinkItem",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"id": true,
+								"list": true,
+								"order": true,
+								"socialLink": true
+							},
+							"create": {
+								"id": true,
+								"list": true,
+								"order": true,
+								"socialLink": true
+							},
+							"update": {
+								"id": true,
+								"list": true,
+								"order": true,
+								"socialLink": true
+							},
+							"delete": true,
+							"customPrimary": true
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/SocialLinkList",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"id": true,
+								"items": true
+							},
+							"create": {
+								"id": true,
+								"items": true
+							},
+							"update": {
+								"id": true,
+								"items": true
+							},
+							"delete": true,
+							"customPrimary": true
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePageLocale/operations/read/socials",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePageLocale/operations/create/socials",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePageLocale/operations/update/socials",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/SocialLink",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"type": true,
+								"url": true
+							}
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/SocialLinkItem",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"list": true,
+								"order": true,
+								"socialLink": true
+							}
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/SocialLinkList",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"items": true
+							}
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/HomePageLocale/operations/read/socials",
+					"value": true
+				}
+			]
+		}
+	]
+}

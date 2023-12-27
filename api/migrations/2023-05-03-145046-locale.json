@@ -1,0 +1,208 @@
+{
+	"formatVersion": 3,
+	"modifications": [
+		{
+			"modification": "removeField",
+			"entityName": "Header",
+			"fieldName": "title"
+		},
+		{
+			"modification": "removeField",
+			"entityName": "Header",
+			"fieldName": "links"
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "HeaderLocale",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "header_locale",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					}
+				},
+				"unique": {},
+				"indexes": {},
+				"eventLog": {
+					"enabled": true
+				}
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "HeaderLocale",
+			"field": {
+				"name": "title",
+				"columnName": "title",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "HeaderLocale",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "root",
+				"target": "Header",
+				"joiningColumn": {
+					"columnName": "root_id",
+					"onDelete": "cascade"
+				},
+				"nullable": false,
+				"inversedBy": "locales"
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "locales",
+				"target": "HeaderLocale",
+				"ownedBy": "root"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "HeaderLocale",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "locale",
+				"target": "Locale",
+				"joiningColumn": {
+					"columnName": "locale_id",
+					"onDelete": "cascade"
+				},
+				"nullable": false,
+				"inversedBy": "headers"
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "headers",
+				"target": "HeaderLocale",
+				"ownedBy": "locale"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "HeaderLocale",
+			"owningSide": {
+				"type": "OneHasOne",
+				"name": "links",
+				"target": "LinkList",
+				"joiningColumn": {
+					"columnName": "links_id",
+					"onDelete": "set null"
+				},
+				"nullable": true
+			}
+		},
+		{
+			"modification": "createUniqueConstraint",
+			"entityName": "HeaderLocale",
+			"unique": {
+				"fields": [
+					"root",
+					"locale"
+				],
+				"name": "unique_HeaderLocale_root_locale_cbbe84"
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HeaderLocale",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"id": true,
+								"root": true,
+								"locale": true,
+								"title": true,
+								"links": true
+							},
+							"create": {
+								"id": true,
+								"root": true,
+								"locale": true,
+								"title": true,
+								"links": true
+							},
+							"update": {
+								"id": true,
+								"root": true,
+								"locale": true,
+								"title": true,
+								"links": true
+							},
+							"delete": true,
+							"customPrimary": true
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Header/operations/create/locales",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Header/operations/update/locales",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Header/operations/read/locales",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Locale/operations/create/headers",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Locale/operations/update/headers",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Locale/operations/read/headers",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/HeaderLocale",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"root": true,
+								"locale": true,
+								"title": true,
+								"links": true
+							}
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/Header/operations/read/locales",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/Locale/operations/read/headers",
+					"value": true
+				}
+			]
+		}
+	]
+}

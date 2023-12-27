@@ -1,0 +1,145 @@
+{
+	"formatVersion": 3,
+	"modifications": [
+		{
+			"modification": "createEnum",
+			"enumName": "EmbedType",
+			"values": [
+				"youtube",
+				"vimeo"
+			]
+		},
+		{
+			"modification": "updateEnum",
+			"enumName": "ContentReferenceType",
+			"values": [
+				"image",
+				"linkables",
+				"embed"
+			]
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "Embed",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "embed",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					}
+				},
+				"unique": {},
+				"indexes": {},
+				"eventLog": {
+					"enabled": true
+				}
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Embed",
+			"field": {
+				"name": "type",
+				"columnName": "type",
+				"columnType": "EmbedType",
+				"nullable": false,
+				"type": "Enum"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Embed",
+			"field": {
+				"name": "embedId",
+				"columnName": "embed_id",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "ContentReference",
+			"owningSide": {
+				"type": "OneHasOne",
+				"name": "embed",
+				"target": "Embed",
+				"joiningColumn": {
+					"columnName": "embed_id",
+					"onDelete": "set null"
+				},
+				"nullable": true
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Embed",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"id": true,
+								"type": true,
+								"embedId": true
+							},
+							"create": {
+								"id": true,
+								"type": true,
+								"embedId": true
+							},
+							"update": {
+								"id": true,
+								"type": true,
+								"embedId": true
+							},
+							"delete": true,
+							"customPrimary": true
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/ContentReference/operations/create/embed",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/ContentReference/operations/update/embed",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/ContentReference/operations/read/embed",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/Embed",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"type": true,
+								"embedId": true
+							}
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/ContentReference/operations/read/embed",
+					"value": true
+				}
+			]
+		}
+	]
+}

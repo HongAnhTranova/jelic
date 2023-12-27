@@ -1,0 +1,50 @@
+{
+	"formatVersion": 3,
+	"modifications": [
+		{
+			"modification": "removeField",
+			"entityName": "ContentReference",
+			"fieldName": "target"
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "ContentReference",
+			"owningSide": {
+				"type": "OneHasOne",
+				"name": "link",
+				"target": "Link",
+				"joiningColumn": {
+					"columnName": "link_id",
+					"onDelete": "set null"
+				},
+				"nullable": true,
+				"orphanRemoval": true
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/ContentReference/operations/create/link",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/ContentReference/operations/update/link",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/ContentReference/operations/read/link",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/ContentReference/operations/read/link",
+					"value": true
+				}
+			]
+		}
+	]
+}

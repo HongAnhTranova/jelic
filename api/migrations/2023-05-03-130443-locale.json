@@ -1,0 +1,35 @@
+{
+	"formatVersion": 3,
+	"modifications": [
+		{
+			"modification": "createUniqueConstraint",
+			"entityName": "GeneralLocale",
+			"unique": {
+				"fields": [
+					"root",
+					"locale"
+				],
+				"name": "unique_GeneralLocale_root_locale_4f2eee"
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/public/entities/GeneralLocale",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"root": true,
+								"locale": true,
+								"seo": true
+							}
+						}
+					}
+				}
+			]
+		}
+	]
+}

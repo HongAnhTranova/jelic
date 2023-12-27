@@ -1,0 +1,266 @@
+{
+	"formatVersion": 3,
+	"modifications": [
+		{
+			"modification": "removeField",
+			"entityName": "General",
+			"fieldName": "seo"
+		},
+		{
+			"modification": "createEnum",
+			"enumName": "LocaleCode",
+			"values": [
+				"cs",
+				"en"
+			]
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "GeneralLocale",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "general_locale",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					}
+				},
+				"unique": {},
+				"indexes": {},
+				"eventLog": {
+					"enabled": true
+				}
+			}
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "Locale",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "locale",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					}
+				},
+				"unique": {},
+				"indexes": {},
+				"eventLog": {
+					"enabled": true
+				}
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Locale",
+			"field": {
+				"name": "code",
+				"columnName": "code",
+				"columnType": "LocaleCode",
+				"nullable": false,
+				"type": "Enum"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Locale",
+			"field": {
+				"name": "label",
+				"columnName": "label",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Locale",
+			"field": {
+				"name": "order",
+				"columnName": "order",
+				"columnType": "integer",
+				"nullable": false,
+				"type": "Integer",
+				"default": 0
+			},
+			"fillValue": 0
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "GeneralLocale",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "root",
+				"target": "General",
+				"joiningColumn": {
+					"columnName": "root_id",
+					"onDelete": "cascade"
+				},
+				"nullable": false,
+				"inversedBy": "locales"
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "locales",
+				"target": "GeneralLocale",
+				"ownedBy": "root"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "GeneralLocale",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "locale",
+				"target": "Locale",
+				"joiningColumn": {
+					"columnName": "locale_id",
+					"onDelete": "cascade"
+				},
+				"nullable": false,
+				"inversedBy": "general"
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "general",
+				"target": "GeneralLocale",
+				"ownedBy": "locale"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "GeneralLocale",
+			"owningSide": {
+				"type": "OneHasOne",
+				"name": "seo",
+				"target": "Seo",
+				"joiningColumn": {
+					"columnName": "seo_id",
+					"onDelete": "set null"
+				},
+				"nullable": true
+			}
+		},
+		{
+			"modification": "createUniqueConstraint",
+			"entityName": "Locale",
+			"unique": {
+				"fields": [
+					"code"
+				],
+				"name": "unique_Locale_code_1d8243"
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GeneralLocale",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"id": true,
+								"root": true,
+								"locale": true,
+								"seo": true
+							},
+							"create": {
+								"id": true,
+								"root": true,
+								"locale": true,
+								"seo": true
+							},
+							"update": {
+								"id": true,
+								"root": true,
+								"locale": true,
+								"seo": true
+							},
+							"delete": true,
+							"customPrimary": true
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Locale",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"id": true,
+								"code": true,
+								"label": true,
+								"order": true,
+								"general": true
+							},
+							"create": {
+								"id": true,
+								"code": true,
+								"label": true,
+								"order": true,
+								"general": true
+							},
+							"update": {
+								"id": true,
+								"code": true,
+								"label": true,
+								"order": true,
+								"general": true
+							},
+							"delete": true,
+							"customPrimary": true
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/General/operations/create/locales",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/General/operations/update/locales",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/General/operations/read/locales",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/Locale",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"code": true,
+								"label": true,
+								"order": true,
+								"general": true
+							}
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/General/operations/read/locales",
+					"value": true
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,136 @@
+{
+	"formatVersion": 3,
+	"modifications": [
+		{
+			"modification": "createEnum",
+			"enumName": "One",
+			"values": [
+				"One"
+			]
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "General",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "general",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					}
+				},
+				"unique": {},
+				"indexes": {},
+				"eventLog": {
+					"enabled": true
+				}
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "General",
+			"field": {
+				"name": "unique",
+				"columnName": "unique",
+				"columnType": "One",
+				"nullable": false,
+				"type": "Enum"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "General",
+			"field": {
+				"name": "dummy",
+				"columnName": "dummy",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createUniqueConstraint",
+			"entityName": "General",
+			"unique": {
+				"fields": [
+					"unique"
+				],
+				"name": "unique_General_unique_83daa7"
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin",
+					"value": {
+						"variables": {},
+						"stages": "*",
+						"entities": {
+							"General": {
+								"predicates": {},
+								"operations": {
+									"read": {
+										"id": true,
+										"unique": true,
+										"dummy": true
+									},
+									"create": {
+										"id": true,
+										"unique": true,
+										"dummy": true
+									},
+									"update": {
+										"id": true,
+										"unique": true,
+										"dummy": true
+									},
+									"delete": true,
+									"customPrimary": true
+								}
+							}
+						},
+						"s3": {
+							"**": {
+								"upload": true,
+								"read": true
+							}
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/public",
+					"value": {
+						"variables": {},
+						"stages": "*",
+						"s3": {
+							"**": {
+								"upload": false,
+								"read": true
+							}
+						},
+						"entities": {
+							"General": {
+								"predicates": {},
+								"operations": {
+									"read": {
+										"id": true,
+										"unique": true,
+										"dummy": true
+									}
+								}
+							}
+						}
+					}
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,41 @@
+{
+	"formatVersion": 5,
+	"modifications": [
+		{
+			"modification": "createColumn",
+			"entityName": "FormFields",
+			"field": {
+				"name": "submitButtonLabel",
+				"columnName": "submit_button_label",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/FormFields/operations/read/submitButtonLabel",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/FormFields/operations/create/submitButtonLabel",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/FormFields/operations/update/submitButtonLabel",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/FormFields/operations/read/submitButtonLabel",
+					"value": true
+				}
+			]
+		}
+	]
+}

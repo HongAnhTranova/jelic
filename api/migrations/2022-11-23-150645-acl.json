@@ -1,0 +1,82 @@
+{
+	"formatVersion": 3,
+	"modifications": [
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "remove",
+					"path": "/roles/admin/entities/General/operations/customPrimary"
+				},
+				{
+					"op": "remove",
+					"path": "/roles/admin/entities/Image/operations/customPrimary"
+				},
+				{
+					"op": "remove",
+					"path": "/roles/admin/entities/GenericPage/operations/customPrimary"
+				},
+				{
+					"op": "remove",
+					"path": "/roles/admin/entities/Linkable/operations/customPrimary"
+				},
+				{
+					"op": "remove",
+					"path": "/roles/admin/entities/Seo/operations/customPrimary"
+				},
+				{
+					"op": "remove",
+					"path": "/roles/admin/entities/Content/operations/customPrimary"
+				},
+				{
+					"op": "remove",
+					"path": "/roles/admin/entities/ContentBlock/operations/customPrimary"
+				},
+				{
+					"op": "remove",
+					"path": "/roles/admin/entities/ContentReference/operations/customPrimary"
+				},
+				{
+					"op": "remove",
+					"path": "/roles/admin/entities/ContentReferenceLinkableItem/operations/customPrimary"
+				},
+				{
+					"op": "remove",
+					"path": "/roles/public/entities/General/operations/read/id"
+				},
+				{
+					"op": "remove",
+					"path": "/roles/public/entities/GenericPage/operations/read/id"
+				},
+				{
+					"op": "remove",
+					"path": "/roles/public/entities/Image/operations/read/id"
+				},
+				{
+					"op": "remove",
+					"path": "/roles/public/entities/Seo/operations/read/id"
+				},
+				{
+					"op": "remove",
+					"path": "/roles/public/entities/Linkable/operations/read/id"
+				},
+				{
+					"op": "remove",
+					"path": "/roles/public/entities/Content/operations/read/id"
+				},
+				{
+					"op": "remove",
+					"path": "/roles/public/entities/ContentBlock/operations/read/id"
+				},
+				{
+					"op": "remove",
+					"path": "/roles/public/entities/ContentReference/operations/read/id"
+				},
+				{
+					"op": "remove",
+					"path": "/roles/public/entities/ContentReferenceLinkableItem/operations/read/id"
+				}
+			]
+		}
+	]
+}

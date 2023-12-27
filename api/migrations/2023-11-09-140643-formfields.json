@@ -1,0 +1,233 @@
+{
+	"formatVersion": 5,
+	"modifications": [
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "FormFields",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "form_fields",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					}
+				},
+				"unique": [],
+				"indexes": [],
+				"eventLog": {
+					"enabled": true
+				}
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "FormFields",
+			"field": {
+				"name": "successMessage",
+				"columnName": "success_message",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "FormFields",
+			"field": {
+				"name": "errorMessage",
+				"columnName": "error_message",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "FormFields",
+			"field": {
+				"name": "name",
+				"columnName": "name",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "FormFields",
+			"field": {
+				"name": "nameRequiredMessage",
+				"columnName": "name_required_message",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "FormFields",
+			"field": {
+				"name": "email",
+				"columnName": "email",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "FormFields",
+			"field": {
+				"name": "emailRequiredMessage",
+				"columnName": "email_required_message",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "FormFields",
+			"field": {
+				"name": "phone",
+				"columnName": "phone",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "FormFields",
+			"field": {
+				"name": "phoneRequiredMessage",
+				"columnName": "phone_required_message",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "FormFields",
+			"field": {
+				"name": "note",
+				"columnName": "note",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "HomePageLocale",
+			"owningSide": {
+				"type": "OneHasOne",
+				"name": "formFields",
+				"target": "FormFields",
+				"joiningColumn": {
+					"columnName": "form_fields_id",
+					"onDelete": "cascade"
+				},
+				"nullable": true
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/FormFields",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"id": true,
+								"successMessage": true,
+								"errorMessage": true,
+								"name": true,
+								"nameRequiredMessage": true,
+								"email": true,
+								"emailRequiredMessage": true,
+								"phone": true,
+								"phoneRequiredMessage": true,
+								"note": true
+							},
+							"create": {
+								"id": true,
+								"successMessage": true,
+								"errorMessage": true,
+								"name": true,
+								"nameRequiredMessage": true,
+								"email": true,
+								"emailRequiredMessage": true,
+								"phone": true,
+								"phoneRequiredMessage": true,
+								"note": true
+							},
+							"update": {
+								"id": true,
+								"successMessage": true,
+								"errorMessage": true,
+								"name": true,
+								"nameRequiredMessage": true,
+								"email": true,
+								"emailRequiredMessage": true,
+								"phone": true,
+								"phoneRequiredMessage": true,
+								"note": true
+							},
+							"delete": true,
+							"customPrimary": true
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePageLocale/operations/create/formFields",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePageLocale/operations/update/formFields",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/HomePageLocale/operations/read/formFields",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/FormFields",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"successMessage": true,
+								"errorMessage": true,
+								"name": true,
+								"nameRequiredMessage": true,
+								"email": true,
+								"emailRequiredMessage": true,
+								"phone": true,
+								"phoneRequiredMessage": true,
+								"note": true
+							}
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/HomePageLocale/operations/read/formFields",
+					"value": true
+				}
+			]
+		}
+	]
+}

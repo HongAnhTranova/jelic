@@ -1,0 +1,3 @@
+# Vercel wrongly thinks this is pages/api directory and tries to run api functions in this folder
+# better solution would be moving contember things to subfolder
+/api

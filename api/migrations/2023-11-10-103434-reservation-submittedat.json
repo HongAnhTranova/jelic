@@ -1,0 +1,43 @@
+{
+	"formatVersion": 5,
+	"modifications": [
+		{
+			"modification": "createColumn",
+			"entityName": "Reservation",
+			"field": {
+				"name": "submittedAt",
+				"columnName": "submitted_at",
+				"columnType": "timestamptz",
+				"nullable": false,
+				"type": "DateTime",
+				"default": "now"
+			},
+			"fillValue": "now"
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Reservation/operations/read/submittedAt",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Reservation/operations/create/submittedAt",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Reservation/operations/update/submittedAt",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/Reservation/operations/read/submittedAt",
+					"value": true
+				}
+			]
+		}
+	]
+}

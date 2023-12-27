@@ -1,0 +1,6 @@
+{
+	"name": "Monorepo",
+	"postCreateCommand": "npm ci",
+	"postAttachCommand": "npm run dev",
+	"forwardPorts": [3000, 1480, 1481, 1483, 1484, 1485]
+}

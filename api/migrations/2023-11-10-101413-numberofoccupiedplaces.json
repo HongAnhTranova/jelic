@@ -1,0 +1,43 @@
+{
+	"formatVersion": 5,
+	"modifications": [
+		{
+			"modification": "createColumn",
+			"entityName": "AvaibilityDate",
+			"field": {
+				"name": "numberOfOccupiedPlaces",
+				"columnName": "number_of_occupied_places",
+				"columnType": "integer",
+				"nullable": false,
+				"type": "Integer",
+				"default": 0
+			},
+			"fillValue": 0
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/AvaibilityDate/operations/read/numberOfOccupiedPlaces",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/AvaibilityDate/operations/create/numberOfOccupiedPlaces",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/AvaibilityDate/operations/update/numberOfOccupiedPlaces",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/AvaibilityDate/operations/read/numberOfOccupiedPlaces",
+					"value": true
+				}
+			]
+		}
+	]
+}

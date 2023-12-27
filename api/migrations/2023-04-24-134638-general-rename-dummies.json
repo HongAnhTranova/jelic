@@ -1,0 +1,85 @@
+{
+	"formatVersion": 3,
+	"modifications": [
+		{
+			"modification": "removeField",
+			"entityName": "General",
+			"fieldName": "dummy"
+		},
+		{
+			"modification": "removeField",
+			"entityName": "General",
+			"fieldName": "image"
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "General",
+			"field": {
+				"name": "dummyText",
+				"columnName": "dummy_text",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "General",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "dummyImage",
+				"target": "Image",
+				"joiningColumn": {
+					"columnName": "dummy_image_id",
+					"onDelete": "set null"
+				},
+				"nullable": true
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/General/operations/create/dummyText",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/General/operations/create/dummyImage",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/General/operations/update/dummyText",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/General/operations/update/dummyImage",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/General/operations/read/dummyText",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/General/operations/read/dummyImage",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/General/operations/read/dummyText",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/General/operations/read/dummyImage",
+					"value": true
+				}
+			]
+		}
+	]
+}

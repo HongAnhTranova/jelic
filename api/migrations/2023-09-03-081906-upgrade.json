@@ -1,0 +1,8 @@
+{
+	"formatVersion": 5,
+	"modifications": [
+		{
+			"modification": "removeIndexNames"
+		}
+	]
+}

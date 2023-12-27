@@ -1,0 +1,402 @@
+{
+	"formatVersion": 3,
+	"modifications": [
+		{
+			"modification": "createEnum",
+			"enumName": "ContentReferenceType",
+			"values": [
+				"image",
+				"linkables"
+			]
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "Content",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "content",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					}
+				},
+				"unique": {},
+				"indexes": {},
+				"eventLog": {
+					"enabled": true
+				}
+			}
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "ContentBlock",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "content_block",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					}
+				},
+				"unique": {},
+				"indexes": {},
+				"eventLog": {
+					"enabled": true
+				}
+			}
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "ContentReference",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "content_reference",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					}
+				},
+				"unique": {},
+				"indexes": {},
+				"eventLog": {
+					"enabled": true
+				}
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "ContentBlock",
+			"field": {
+				"name": "order",
+				"columnName": "order",
+				"columnType": "integer",
+				"nullable": false,
+				"type": "Integer"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "ContentBlock",
+			"field": {
+				"name": "json",
+				"columnName": "json",
+				"columnType": "text",
+				"nullable": false,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "ContentReference",
+			"field": {
+				"name": "type",
+				"columnName": "type",
+				"columnType": "ContentReferenceType",
+				"nullable": false,
+				"type": "Enum"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "ContentReference",
+			"field": {
+				"name": "primaryText",
+				"columnName": "primary_text",
+				"columnType": "text",
+				"nullable": true,
+				"type": "String"
+			}
+		},
+		{
+			"modification": "createView",
+			"entity": {
+				"name": "ContentReferenceLinkableItem",
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "content_reference_linkable_item",
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"columnType": "uuid",
+						"nullable": false,
+						"type": "Uuid"
+					},
+					"reference": {
+						"type": "ManyHasOne",
+						"name": "reference",
+						"target": "ContentReference",
+						"joiningColumn": {
+							"columnName": "reference_id",
+							"onDelete": "restrict"
+						},
+						"nullable": false,
+						"inversedBy": "linkables"
+					},
+					"item": {
+						"type": "OneHasOne",
+						"name": "item",
+						"target": "Linkable",
+						"joiningColumn": {
+							"columnName": "item_id",
+							"onDelete": "restrict"
+						},
+						"nullable": false
+					}
+				},
+				"unique": {},
+				"indexes": {},
+				"eventLog": {
+					"enabled": true
+				},
+				"view": {
+					"sql": "\n\tSELECT\n\t\tgen_random_uuid() AS id,\n\t\tI.id as item_id,\n\t\tC.id as reference_id\n\tFROM linkable as I\n\tCROSS JOIN content_reference as C\n\tWHERE C.type = 'linkables'\n"
+				}
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "ContentBlock",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "content",
+				"target": "Content",
+				"joiningColumn": {
+					"columnName": "content_id",
+					"onDelete": "cascade"
+				},
+				"nullable": false,
+				"inversedBy": "blocks"
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "blocks",
+				"target": "ContentBlock",
+				"ownedBy": "content",
+				"orderBy": [
+					{
+						"path": [
+							"order"
+						],
+						"direction": "asc"
+					}
+				]
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "ContentReference",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "block",
+				"target": "ContentBlock",
+				"joiningColumn": {
+					"columnName": "block_id",
+					"onDelete": "cascade"
+				},
+				"nullable": false,
+				"inversedBy": "references"
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "references",
+				"target": "ContentReference",
+				"ownedBy": "block"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "ContentReference",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "image",
+				"target": "Image",
+				"joiningColumn": {
+					"columnName": "image_id",
+					"onDelete": "set null"
+				},
+				"nullable": true
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "GenericPage",
+			"owningSide": {
+				"type": "OneHasOne",
+				"name": "content",
+				"target": "Content",
+				"joiningColumn": {
+					"columnName": "content_id",
+					"onDelete": "set null"
+				},
+				"nullable": true
+			}
+		},
+		{
+			"modification": "createRelationInverseSide",
+			"entityName": "ContentReference",
+			"relation": {
+				"type": "OneHasMany",
+				"name": "linkables",
+				"target": "ContentReferenceLinkableItem",
+				"ownedBy": "reference"
+			}
+		},
+		{
+			"modification": "patchAclSchema",
+			"patch": [
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/Content",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"id": true,
+								"blocks": true
+							},
+							"create": {
+								"id": true,
+								"blocks": true
+							},
+							"update": {
+								"id": true,
+								"blocks": true
+							},
+							"delete": true,
+							"customPrimary": true
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/ContentBlock",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"id": true,
+								"content": true,
+								"order": true,
+								"json": true,
+								"references": true
+							},
+							"create": {
+								"id": true,
+								"content": true,
+								"order": true,
+								"json": true,
+								"references": true
+							},
+							"update": {
+								"id": true,
+								"content": true,
+								"order": true,
+								"json": true,
+								"references": true
+							},
+							"delete": true,
+							"customPrimary": true
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/ContentReference",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"id": true,
+								"block": true,
+								"type": true,
+								"primaryText": true,
+								"image": true,
+								"linkables": true
+							},
+							"create": {
+								"id": true,
+								"block": true,
+								"type": true,
+								"primaryText": true,
+								"image": true,
+								"linkables": true
+							},
+							"update": {
+								"id": true,
+								"block": true,
+								"type": true,
+								"primaryText": true,
+								"image": true,
+								"linkables": true
+							},
+							"delete": true,
+							"customPrimary": true
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/ContentReferenceLinkableItem",
+					"value": {
+						"predicates": {},
+						"operations": {
+							"read": {
+								"id": true,
+								"reference": true,
+								"item": true
+							},
+							"create": {
+								"id": true,
+								"reference": true,
+								"item": true
+							},
+							"update": {
+								"id": true,
+								"reference": true,
+								"item": true
+							},
+							"delete": true,
+							"customPrimary": true
+						}
+					}
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPage/operations/read/content",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPage/operations/create/content",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/admin/entities/GenericPage/operations/update/content",
+					"value": true
+				},
+				{
+					"op": "add",
+					"path": "/roles/public/entities/GenericPage/operations/read/content",
+					"value": true
+				}
+			]
+		}
+	]
+}

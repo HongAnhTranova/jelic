@@ -1,0 +1,50 @@
+name: Deploy website
+
+on:
+  push:
+    branches:
+      - 'main'
+      # - 'deploy/website/beta'
+      - 'deploy/website/prod'
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Node.js setup
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check
+        run: npm run check-website
+
+      # - name: Prepare beta .env.production
+      #   if: ${{ github.ref == 'refs/heads/deploy/website/beta' }}
+      #   run: |
+      #     mv website/.env.beta website/.env.production
+      #     mv .vercel/beta.json .vercel/project.json
+
+      - name: Prepare production .env.production
+        if: ${{ github.ref == 'refs/heads/deploy/website/prod' }}
+        run: |
+          mv website/.env.prod website/.env.production
+          mv .vercel/prod.json .vercel/project.json
+
+      - name: Build
+        if: ${{ startsWith(github.ref, 'refs/heads/deploy/website/') }}
+        run: npm run build-website
+
+      - name: Deploy
+        if: ${{ startsWith(github.ref, 'refs/heads/deploy/website/') }}
+        run: vercel --token ${{ secrets.VERCEL_TOKEN }} --prod
